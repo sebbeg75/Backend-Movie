@@ -1,0 +1,22 @@
+{
+  "name": "backend-movie",
+  "version": "1.0.0",
+  "description": "Cuarto Reto del Bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebbeg75/Backend-Movie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebbeg75/Backend-Movie/issues"
+  },
+  "homepage": "https://github.com/sebbeg75/Backend-Movie#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
