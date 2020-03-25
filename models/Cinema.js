@@ -19,6 +19,7 @@ Cinema.init(
         modelName: 'cinema'
     }
 );
+
 //Movie.belongsTo(Author);
 //Author.hasMany(Movie);
 
