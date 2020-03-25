@@ -1,30 +1,38 @@
-const sequelize = require('./sequelize');
-const { Model,
-        STRING,
-        TEXT 
-} = require('sequelize');
+const Sequelize = require('sequelize');
 
-class Cinema extends Model {}
+const sequelize = require('./sequelize');
+class Cinema extends Sequelize.Model {}
+
+const faker = require('faker');
+const times = require("lodash.times");
+const random = require("lodash.random");
 
 Cinema.init(
     {
-        title: { type: STRING },
-        content: { type: TEXT },
+        name: { type: Sequelize.STRING },
+        estreno: { type: Sequelize.BOOLEAN },
+        provincia: { type: Sequelize.STRING },
+        title: { type: Sequelize.STRING }
     },
     {
         sequelize,
-        modelName: 'Cinema'
+        modelName: 'cinema'
     }
 );
+//Movie.belongsTo(Author);
+//Author.hasMany(Movie);
 
 Cinema.sync({force: true})
     .then( () => {
-        Cinema.create(
-            times(10, () => ({
-                firstName: faker.name.firstName(),
-                lastName: faker.name.lastName()
+        Cinema.bulkCreate(
+            times(5, () => ({            
+                title: faker.lorem.sentence(),
+                provincia: faker.name.firstName(),
+                estreno: "false",
+                name: faker.lorem.sentence()
             }))
-        )
-    });
+            )
+        });
+        
 
 module.exports = Cinema;

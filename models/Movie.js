@@ -1,10 +1,12 @@
-const sequelize = require('./sequelize');
-const { Model,
-        STRING,
-        TEXT 
-} = require('sequelize');
+const Sequelize = require('sequelize');
 
-class Movie extends Model {}
+const sequelize = require('./sequelize');
+class Movie extends Sequelize.Model {}
+
+const faker = require('faker');
+const times = require("lodash.times");
+const random = require("lodash.random");
+
 
 Movie.init(
     {
@@ -18,7 +20,6 @@ Movie.init(
         modelName: 'movie'
     }
 );
-
 //Movie.belongsTo(Author);
 //Author.hasMany(Movie);
 
@@ -27,12 +28,12 @@ Movie.sync({force: true})
         Movie.bulkCreate(
             times(15, () => ({            
                 title: faker.lorem.sentence(),
-                content: faker.lorem.paragraph(),
-                authorId: random(1, 10)
+                author: faker.name.findName(),
+                estreno: "false",
+                cine: random( 1, 5)
             }))
-        )
-    });
-
-
+            )
+        });
+        
 
 module.exports = Movie;

@@ -1,30 +1,36 @@
-const sequelize = require('./sequelize');
-const { Model,
-        STRING,
-        TEXT 
-} = require('sequelize');
+const Sequelize = require('sequelize');
 
-class Actor extends Model {}
+const sequelize = require('./sequelize');
+class Actor extends Sequelize.Model {}
+
+const faker = require('faker');
+const times = require("lodash.times");
+const random = require("lodash.random");
 
 Actor.init(
     {
-        title: { type: STRING },
-        content: { type: TEXT },
+        name: { type: Sequelize.STRING },
+        apellido: { type: Sequelize.STRING},
+        title: { type: Sequelize.STRING }
     },
     {
         sequelize,
-        modelName: 'Actor'
+        modelName: 'actor'
     }
 );
+//Movie.belongsTo(Author);
+//Author.hasMany(Movie);
 
 Actor.sync({force: true})
     .then( () => {
-        Actor.create(
-            times(10, () => ({
-                firstName: faker.name.firstName(),
-                lastName: faker.name.lastName()
+        Actor.bulkCreate(
+            times(30, () => ({            
+                title: faker.lorem.sentence(),
+                apellido: faker.name.lastName(),
+                name: faker.name.firstName()
             }))
-        )
-    });
+            )
+        });
+        
 
 module.exports = Actor;
