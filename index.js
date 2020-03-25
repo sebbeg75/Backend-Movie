@@ -17,27 +17,22 @@ const Actor = require("./models/Actor");
 
 //movie
 
- app.get('/movie', function(req, res) {
-   if (!req.query.id){
-    Movie.findAll().then( movies => {
-      res.json((movies))
-    });
+app.get('/movie', (req, res) => {
+  if (!req.query.id) {
+      Movie.findAll().then( movies => {
+         res.json((movies))
+     });
+  } else if(req.query.id) { 
+      const id = req.query.id;
+      Movie.findAll({ where: { id: id }}).then( movies => {
+         res.json((movies));
+     });
   }else{ 
- const id = req.query.id;
- Movie.findAll({ where: { id: id }}).then( movies => {
-     res.json((movies));
-});
- }
-if (!req.query.title){
-  Movie.findAll().then( movies => {
-    res.json((movies))
-  });
-}else{ 
-const title = req.query.title;
-Movie.findAll({ where: { title: title }}).then( movies => {
-   res.json((movies));
-});
-}
+      const title = req.query.title;
+      Movie.findAll({ where: { title: title }}).then( movies => {
+         res.json((movies));
+     });
+  }
 });
 
 
@@ -59,7 +54,7 @@ Cinema.findAll().then( cine => {
   res.json((cine))
 });
 }else{ 
-const estreno = req.query.title;
+const estreno = req.query.estreno;
 Cinema.findAll({ where: { estreno: estreno }}).then( cine => {
  res.json((cine));
 });
@@ -69,7 +64,7 @@ if (!req.query.provincia){
     res.json((cine))
   });
   }else{ 
-  const provincia = req.query.title;
+  const provincia = req.query.provincia;
   Cinema.findAll({ where: { provincia: provincia }}).then( cine => {
    res.json((cine));
   });
@@ -102,6 +97,6 @@ app.get('/actor', function(req, res) {
 });
 
 
-app.listen(3000, () => {
-    console.log("El servidor está inicializado en el puerto 3000");
+app.listen(8000, () => {
+    console.log("El servidor está inicializado en el puerto 8000");
    });
