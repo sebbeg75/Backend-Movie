@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = require('./sequelize');
+const sequelize = require('../Sequelize/sequelize');
 class Actor extends Sequelize.Model {}
 
 const faker = require('faker');
