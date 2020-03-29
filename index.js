@@ -18,7 +18,7 @@ const Actor = require("./models/Actor");
 //movie
 
 app.get('/movie', (req, res) => {
-  if (!req.query.id) {
+  if (!req.query.id && !req.query.title) {
       Movie.findAll().then( movies => {
          res.json((movies))
      });
@@ -38,61 +38,47 @@ app.get('/movie', (req, res) => {
 
 // cinema
 
-app.get('/cinema', function(req, res) {
-  if (!req.query.name){
-  Cinema.findAll().then( cine => {
-    res.json((cine));
-  });
-}else{ 
-const name = req.query.name;
-Cinema.findAll({ where: { name: name }}).then( cine => {
-   res.json((cine));
-});
-}
-if (!req.query.estreno){
-Cinema.findAll().then( cine => {
-  res.json((cine))
-});
-}else{ 
-const estreno = req.query.estreno;
-Cinema.findAll({ where: { estreno: estreno }}).then( cine => {
- res.json((cine));
-});
-}
-if (!req.query.provincia){
-  Cinema.findAll().then( cine => {
-    res.json((cine))
-  });
-  }else{ 
-  const provincia = req.query.provincia;
-  Cinema.findAll({ where: { provincia: provincia }}).then( cine => {
-   res.json((cine));
-  });
-  }
+app.get('/cinema', (req, res) => {
+  if((req.query.estreno)){
+    const estreno = req.query.estreno;
+    Cinema.findAll({ where: { estreno: estreno }}).then( cines => {
+        res.json((cines))
+     });
+ }
+ else if ((!req.query.name) && (!req.query.provincia)) {
+     Cinema.findAll().then( cines => {
+         res.json((cines));
+     });
+ } else if(!req.query.provincia) {
+     const name = req.query.name;
+     Cinema.findAll({ where: { name: name }}).then( cines => {
+         res.json((cines));
+     });
+ }else if(!req.query.name){
+     const provincia = req.query.provincia;
+     Cinema.findAll({ where: { provincia: provincia }}).then( cines => {
+         res.json((cines));
+     });
+ }
 });
 
 // actor
 
-app.get('/actor', function(req, res) {
-  if (!req.query.id){
-  Actor.findAll().then( cine => {
-    res.json((cine))
-  });
-}else{ 
-  const id = req.query.id;
-  Actor.findAll({ where: { id: id }}).then( actores => {
-     res.json((actores));
-  });
-  }
-  if (!req.query.movie){
-    Movie.findAll().then( actores => {
-      res.json((actores))
-    });
+app.get('/actores', (req, res) => {
+  if (!req.query.id && !req.query.title) {
+      Actor.findAll().then( actor => {
+         res.json((actor))
+     });
+  } else if(req.query.id) { 
+      const id = req.query.id;
+      Actor.findAll({ where: { id: id }}).then( actor => {
+         res.json((actor));
+     });
   }else{ 
-  const movie = req.query.movie;
-  Movie.findAll({ where: { movie: movie }}).then( actores => {
-     res.json((actores));
-  });
+      const title = req.query.title;
+      Actor.findAll({ where: { title: title }}).then( actor => {
+         res.json((actor));
+     });
   }
 });
 

@@ -10,7 +10,7 @@ const random = require("lodash.random");
 Cinema.init(
     {
         name: { type: Sequelize.STRING },
-        estreno: { type: Sequelize.BOOLEAN },
+        estreno: { type: Sequelize.STRING },
         provincia: { type: Sequelize.STRING },
         title: { type: Sequelize.STRING }
     },
@@ -24,16 +24,16 @@ Cinema.init(
 //Author.hasMany(Movie);
 
 Cinema.sync({force: true})
-    .then( () => {
-        Cinema.bulkCreate(
-            times(5, () => ({            
-                title: faker.lorem.sentence(),
-                provincia: faker.name.firstName(),
-                estreno: "false",
-                name: faker.lorem.sentence()
-            }))
-            )
-        });
+    // .then( () => {
+    //     Cinema.bulkCreate(
+    //         times(5, () => ({            
+    //             title: faker.lorem.sentence(),
+    //             provincia: faker.name.firstName(),
+    //             estreno: "false",
+    //             name: faker.lorem.sentence()
+    //         }))
+    //         )
+    //     });
         
 
 module.exports = Cinema;

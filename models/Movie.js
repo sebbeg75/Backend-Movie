@@ -23,17 +23,17 @@ Movie.init(
 //Movie.belongsTo(Author);
 //Author.hasMany(Movie);
 
-Movie.sync({force: true})
-    .then( () => {
-        Movie.bulkCreate(
-            times(15, () => ({            
-                title: faker.lorem.sentence(),
-                author: faker.name.findName(),
-                estreno: "false",
-                cine: random( 1, 5)
-            }))
-            )
-        });
+Movie.sync({force: false})
+    // .then( () => {
+    //     Movie.bulkCreate(
+    //         times(15, () => ({            
+    //             title: faker.lorem.sentence(),
+    //             author: faker.name.findName(),
+    //             estreno: "false",
+    //             cine: random( 1, 5)
+    //         }))
+    //         )
+    //     });
         
 
 module.exports = Movie;
